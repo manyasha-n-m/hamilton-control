@@ -1,0 +1,13 @@
+.idea/
+.ipynb_checkpoints/
+templates/
+*.kra*
+*.pdf
+*.djvu
+*.rar
+*.zip
+*.7z
+*.jpg
+*.png
+*.pptx
+*.doc
