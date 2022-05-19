@@ -1,1 +1,1 @@
-from .optimizators import speedgrad
+from .optimizators import speedgrad, RLnetwork

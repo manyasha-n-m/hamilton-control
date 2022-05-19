@@ -17,7 +17,7 @@ def speedgrad(x, u, I_, gamma=0.1):
 
 
 class RLnetwork:
-    def __init__(self, f, g, I_):
+    def __init__(self, f, g, I_, N=10, v=1, G=100, R=1, b=1, nc1=1, nc2=1, na1=10, na2=1):
         self.f = f
         self.g = g
         self.I_ = np.array([I_, -I_, 0, 0])
@@ -25,14 +25,15 @@ class RLnetwork:
         self.Wc = np.ones(9)
         self.Gamma = np.eye(9, dtype=int) * 10
 
-        self.v = 1
-        self.G = 100
-        self.R = 1
-        self.b = 1
-        self.nc1 = 1
-        self.nc2 = 1
-        self.na1 = 10
-        self.na2 = 1
+        self.N = N
+        self.v = v
+        self.G = G
+        self.R = R
+        self.b = b
+        self.nc1 = nc1
+        self.nc2 = nc2
+        self.na1 = na1
+        self.na2 = na2
 
     def equation(self, x, u):
         return self.f(x) + self.g(x) * u
@@ -84,10 +85,9 @@ class RLnetwork:
         u = self.u(x)
         return (self.Wc[:, None].T @ self.grad_sigma(x - self.I_)) @ self.equation(x, u) + self.r(x - self.I_, u)
 
-    @staticmethod
-    def generate_x(x, N=10):
-        perturbation = np.random.uniform(-1, 1, N)
-        x_set = np.vstack([perturbation, -perturbation, np.zeros((2, N))]).T + x
+    def generate_x(self, x):
+        perturbation = np.random.uniform(-1, 1, self.N)
+        x_set = np.vstack([perturbation, -perturbation, np.zeros((2, self.N))]).T + x
         return x_set
 
     def w(self, x):
