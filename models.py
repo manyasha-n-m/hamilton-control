@@ -49,14 +49,6 @@ class Model1:
         self.u.append(u)
         self.iter_ += 1
 
-    @property
-    def plot_u(self):
-        plt.figure(figsize=(10, 4))
-        plt.plot(self.t[:len(self.u)], self.u, c='r')
-        plt.xlabel('time')
-        plt.ylabel("u(t)")
-        return plt
-
     def plot_measurable(self, i):
         plt.figure(figsize=(10, 4))
         plt.plot(self.t[:len(self.measurable)], self.measurable[:, i])
@@ -66,12 +58,22 @@ class Model1:
 
     @property
     def plot_evolution(self):
-        plt.figure(figsize=(10, 8))
+        plt.figure(figsize=(10, 12))
         n = len(self.evolution)
         tspan = np.linspace(0, n // 10, n)
+
+        plt.subplot(311)
         plt.plot(tspan, self.evolution[:, 0])
-        plt.plot(tspan, self.evolution[:, 1])
         plt.xlabel('t-time')
         plt.ylabel(f"I-Action")
-        plt.legend(['$I_1$', '$I_2$'])
+        plt.legend(['$I_1$'])
+        plt.subplot(312)
+        plt.plot(tspan, self.evolution[:, 1], c='tab:orange')
+        plt.xlabel('t-time')
+        plt.ylabel(f"I-Action")
+        plt.legend(['$I_2$'])
+        plt.subplot(313)
+        plt.plot(self.t[:len(self.u)], self.u, c='tab:red')
+        plt.xlabel('time')
+        plt.ylabel("u(t)")
         return plt
