@@ -51,18 +51,23 @@ class Model1:
 
     def plot_measurable(self, i):
         plt.figure(figsize=(10, 4))
+        font = {'weight': 'bold', 'size': 15}
+        plt.rc('font', **font)
         plt.plot(self.t[:len(self.measurable)], self.measurable[:, i])
         plt.xlabel('time')
         plt.ylabel(f"x_{i}")
-        return plt
+        return plt.show()
 
-    @property
-    def plot_evolution(self):
+    def plot_evolution(self, title=None):
         plt.figure(figsize=(10, 12))
+        font = {'weight': 'bold', 'size': 15}
+        plt.rc('font', **font)
         n = len(self.evolution)
-        tspan = np.linspace(0, n // 10, n)
+        tspan = np.linspace(0, n // 1000, n)
 
         plt.subplot(311)
+        if title:
+            plt.title(title)
         plt.plot(tspan, self.evolution[:, 0])
         plt.xlabel('t-time')
         plt.ylabel(f"I-Action")
@@ -74,6 +79,6 @@ class Model1:
         plt.legend(['$I_2$'])
         plt.subplot(313)
         plt.plot(self.t[:len(self.u)], self.u, c='tab:red')
-        plt.xlabel('time')
-        plt.ylabel("u(t)")
-        return plt
+        plt.xlabel('t-time')
+        plt.ylabel("u-control")
+        return plt.show()
