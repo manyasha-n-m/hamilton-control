@@ -17,7 +17,7 @@ def speedgrad(x, u, I_, gamma=0.1):
 
 
 class RLnetwork:
-    def __init__(self, f, g, I_, N=10, v=1, G=100, R=1, b=1, nc1=1, nc2=1, na1=10, na2=1):
+    def __init__(self, f, g, I_, N=10, v=1, G=100, R=1, b=1, nc1=1, nc2=1, na1=10, na2=0.1):
         self.f = f
         self.g = g
         self.I_ = np.array([I_, -I_, 0, 0])
