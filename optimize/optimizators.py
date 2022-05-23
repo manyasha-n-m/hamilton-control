@@ -150,3 +150,17 @@ class RLnetwork:
         self.upd_Wc(x, x_set)
         self.upd_Wa(x, x_set)
         return self.u(x)
+
+    def print_V(self, n):
+        kernel = ['x_1^2', 'x_1 x_2', 'x_2^2', 'sin(x_3)', 'sin(x_4)',
+                  'cos(x_3)', 'cos(x_4)', 'sin(x_4-x_3)', 'cos(x_4-x_3)']
+        str = f''
+        for w, s in zip(self.Wc, kernel):
+            str += f'+{np.round(w, n)}{s}' if w > 0 else f'{np.round(w, n)}{s}'
+        print(str)
+
+    def print_u(self, n):
+        Wa = self.Wa
+        str = f"1/{2*self.R}*[({-np.round(Wa[1]-2*Wa[0], n)})x_1+({-np.round(2*Wa[2]-Wa[1], 2)})x_2]sin(x_4-x_3)"
+        print(str)
+
